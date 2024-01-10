@@ -1,0 +1,11 @@
+docker-compose up -d
+docker ps -a
+docker container exec -it kafka1 /bin/bash
+kafka-topics --bootstrap-server localhost:9092 --topic cli_topic --create --partitions 2
+kafka-topics --bootstrap-server localhost:9092 --list
+kafka-console-producer --broker-list localhost:9092 --topic cli_topic
+{"name":"name", "email":"test@email"}
+kafka-console-consumer --bootstrap-server localhost:9092 --topic cli_topic -from-beginning
+kafka-topics --bootstrap-server localhost:9092 --delete --topic cli_topic
+docker stop kafka1
+docker start kafka1
